@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "Render Liquid templates in Gulp using TinyLiquid",
   "main": "",
+  "repository": "https://github.com/fchasen/gulp-liquify.git",
+  "homepage": "https://github.com/fchasen/gulp-liquify/",
+  "bugs": "https://github.com/fchasen/gulp-liquify/issues/",
   "directories": {
     "test": "test"
   },
