@@ -54,6 +54,31 @@ describe('gulp-liquify', function() {
         });
     });
     
+    it('includes passed file.locals', function (done) {
+      var through = require("through2");
+
+      var locals = {
+        name: "Fred"
+      };
+      
+      gulp.src(fixtures("passed.liquid"))
+        .pipe(through.obj(function(file, enc, cb) {
+          file.locals = {
+            name: "Derf"
+          };
+          cb(null, file);
+        }))
+        .pipe(liquify(locals))
+        .on('data', function (data) {
+          var content = data.contents.toString();
+        
+          content.should.equal('Hi, my name is Derf.');
+        
+          done();
+        });
+    
+    });
+    
   });
   
 });

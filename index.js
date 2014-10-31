@@ -18,8 +18,8 @@ Promise.promisifyAll(fs);
 // plugin level function (dealing with files)
 function gulpLiquify(locals, options) {
   
-  var setting = _.defaults(options, {
-    base: false
+  var settings = _.defaults(options || {}, {
+    "base": false
   });
   
   // creating a stream through which each file will pass
@@ -33,10 +33,8 @@ function gulpLiquify(locals, options) {
 
     // Apply file specific locals
     if(file.locals) {
-      tempedLocals = _.defaults(file.locals, tempLocals);
+      tempLocals = _.defaults(file.locals, tempLocals);
     }
-    
-    
     
     liquify(file.contents.toString("utf-8"), tempLocals, settings.base || file.base)
       .then(function(result) { 

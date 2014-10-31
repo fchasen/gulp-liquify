@@ -14,7 +14,7 @@ $ npm install gulp-liquify
 ==============
 
 ```js
-var concat = require('gulp-liquify');
+var liquify = require('gulp-liquify');
 
 gulp.task("liquify", function() {
   var locals = {
@@ -43,18 +43,13 @@ gulp.task("liquify", function() {
     name: "Fred"
   };
   gulp.src('*.liquid')
-    .pipe(function(){
-      // creating a stream through which each file will pass
-      var stream = through.obj(function(file, enc, cb) {
-        file.locals = {
-          number: Math.random(),
-          path: file.path
-        };
-      });
-      
-      // returning the file stream
-      return stream;
-    })
+    .pipe(through.obj(function(file, enc, cb) {
+      file.locals = {
+        number: Math.random(),
+        path: file.path
+      };
+      cb(null, file);
+    }))
     .pipe(liquify(locals))
     .pipe(gulp.dest('./dist/'))
 });
