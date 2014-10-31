@@ -58,8 +58,10 @@ gulp.task("liquify", function() {
     .pipe(liquify(locals))
     .pipe(gulp.dest('./dist/'))
 });
+```
 
-###Liquid support from [tinyliquid](https://github.com/leizongmin/tinyliquid)
+Liquid support from [tinyliquid](https://github.com/leizongmin/tinyliquid)
+==============
 
 TinyLiquid does not support the locals variables like this: 
 `a[0]`, `a["b"]`, `a[0]["b"]` and so on.
