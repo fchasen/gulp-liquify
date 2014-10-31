@@ -1,7 +1,7 @@
 Gulp Liquify
 ==============
 
-A Liquid template render using ![TinyLiquid](https://github.com/leizongmin/tinyliquid/)
+A Liquid template render using [TinyLiquid](https://github.com/leizongmin/tinyliquid/)
 
 Installation
 ============
@@ -59,9 +59,10 @@ gulp.task("liquify", function() {
     .pipe(gulp.dest('./dist/'))
 });
 
-Liquid support
+Liquid support from [tinyliquid](https://github.com/leizongmin/tinyliquid)
 ==============
 
-TinyLiquid not support the locals variables like this: `a[0]`, `a["b"]`, `a[0]["b"]` and so on.
+TinyLiquid does not support the locals variables like this: 
+`a[0]`, `a["b"]`, `a[0]["b"]` and so on.
 
 Only support to use `.` as the separator: `a.b`, `a.b.c`
