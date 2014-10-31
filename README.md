@@ -36,7 +36,8 @@ You can pass a base for other templates to be included in a template. It default
 You can pass file specific locals by attaching it to the vinyl file object in a previous task.
 
 ```js
-var concat = require('gulp-liquify');
+var liquify = require('gulp-liquify');
+var through = require('through2');
 
 gulp.task("liquify", function() {
   var locals = {
