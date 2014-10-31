@@ -1,0 +1,33 @@
+{
+  "name": "gulp-liquify",
+  "version": "0.0.1",
+  "description": "Render Liquid templates in Gulp using TinyLiquid",
+  "main": "",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "gulpplugin",
+    "liquid",
+    "template",
+    "liquify"
+  ],
+  "author": "fchasen@gmail.com",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.8.9",
+    "gulp-util": "^3.0.1",
+    "mocha": "^2.0.1",
+    "should": "^4.1.0"
+  },
+  "dependencies": {
+    "bluebird": "^2.3.10",
+    "gulp-util": "^3.0.1",
+    "lodash": "^2.4.1",
+    "through2": "^0.6.3",
+    "tinyliquid": "^0.2.24"
+  }
+}
