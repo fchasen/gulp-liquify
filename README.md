@@ -3,14 +3,14 @@ Gulp Liquify
 
 A Liquid template render using [TinyLiquid](https://github.com/leizongmin/tinyliquid/)
 
-Installation
+####Installation
 =============
 
 ```bash
 $ npm install gulp-liquify
 ```
 
-Gulp Usage
+####Usage
 ==============
 
 ```js
@@ -60,8 +60,8 @@ gulp.task("liquify", function() {
 });
 ```
 
-Liquid support from [tinyliquid](https://github.com/leizongmin/tinyliquid)
-===============
+####Liquid support from [tinyliquid](https://github.com/leizongmin/tinyliquid)
+=============
 
 TinyLiquid does not support the locals variables like this: 
 `a[0]`, `a["b"]`, `a[0]["b"]` and so on.
