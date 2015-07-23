@@ -17,17 +17,17 @@ Promise.promisifyAll(fs);
 
 // plugin level function (dealing with files)
 function gulpLiquify(locals, options) {
-  
+
   var settings = _.defaults(options || {}, {
     "base": false
   });
-  
+
   // creating a stream through which each file will pass
   var stream = through.obj(function(file, enc, cb) {
 
     if (file.isNull()) { return cb(null, file); }
     if (file.isStream()) { return this.emit('error', new PluginError('gulp-liquify',  'Streaming not supported')); }
-    
+
     // Clone a fresh copy, so as not to affect others
     var tempLocals = locals ? _.clone(locals) : {};
 
@@ -35,11 +35,15 @@ function gulpLiquify(locals, options) {
     if(file.locals) {
       tempLocals = _.defaults(file.locals, tempLocals);
     }
-    
+
     liquify(file.contents.toString("utf-8"), tempLocals, settings.base || file.base)
-      .then(function(result) { 
+      .then(function(result) {
         file.contents = new Buffer(result, "utf-8");
         this.push(file);
+        return cb();
+      }.bind(this))
+      .catch(function(err) {
+        this.emit('error', err);
         return cb();
       }.bind(this));
 
