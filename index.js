@@ -1,19 +1,11 @@
 var through = require('through2');
 var gutil = require('gulp-util');
 var PluginError = gutil.PluginError;
-var Promise = require("bluebird");
 var _ = require("lodash");
-var fs = require('fs');
-
-// var Liquid = require("liquid-node");
-// var engine = new Liquid.Engine;
-var tinyliquid = require("tinyliquid");
+var liquify = require('./liquify');
 
 // consts
 const PLUGIN_NAME = 'gulp-liquify';
-
-// Promisify to use readFileAsync
-Promise.promisifyAll(fs);
 
 // plugin level function (dealing with files)
 function gulpLiquify(locals, options) {
@@ -53,44 +45,7 @@ function gulpLiquify(locals, options) {
   return stream;
 };
 
-function liquify(contents, locals, includeBase){
-  var template;
-  var context = tinyliquid.newContext({
-      locals: locals
-    });
-
-  if(!contents) return;
-
-  if(typeof contents != "string"){
-    template = contents;
-  } else {
-    template = tinyliquid.compile(contents);
-  }
-
-  return new Promise(function (resolve, reject) {
-
-    context.onInclude(function (name, callback) {
-      fs.readFile((includeBase || "./") + name, 'utf8', function (err, text) {
-
-        if (err) {
-          reject(err);
-          return callback(err);
-        }
-
-        var ast = tinyliquid.parse(text);
-        callback(null, ast);
-      });
-    });
-
-    template(context, function (err) {
-      if (err) return reject(err);
-      resolve(context.getBuffer());
-    });
-  });
-
-};
-
-
+gulpLiquify.liquify = liquify;
 
 // exporting the plugin main function
 module.exports = gulpLiquify;
