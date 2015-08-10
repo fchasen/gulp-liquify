@@ -1,8 +1,9 @@
 var fs = require("fs");
 var Promise = require("bluebird");
 var tinyliquid = require("tinyliquid");
+var path = require("path");
 
-var liquify = function(contents, locals, includeBase){
+var liquify = function(contents, locals, includeBase, prefix){
   var template;
   var context = tinyliquid.newContext({
       locals: locals
@@ -21,9 +22,28 @@ var liquify = function(contents, locals, includeBase){
   return new Promise(function (resolve, reject) {
 
     context.onInclude(function (name, callback) {
-      var absolute = (name[0] == "." || name[0] == "/");
-      var path = absolute ? name : (includeBase || ".") + "/" + name;
-      fs.readFile(path, 'utf8', function (err, text) {
+      var absolute = path.isAbsolute(name);
+      var ext = path.extname(name);
+      var filePath;
+
+      if(!absolute) {
+
+        if(prefix) {
+          name = prefix + name;
+        }
+
+        if(!ext) {
+          name += ".liquid";
+        }
+
+        filePath = path.join(includeBase, name);
+
+      } else {
+        filePath = name;
+      }
+
+
+      fs.readFile(filePath, 'utf8', function (err, text) {
 
         if (err) {
           reject(err);
