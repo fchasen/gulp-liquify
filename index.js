@@ -29,7 +29,7 @@ function gulpLiquify(locals, options) {
       tempLocals = _.defaults(file.locals, tempLocals);
     }
 
-    liquify(file.contents.toString("utf-8"), tempLocals, settings.base || file.base)
+    liquify(file.contents.toString("utf-8"), tempLocals, settings.base || file.base, settings.prefix)
       .then(function(result) {
         file.contents = new Buffer(result, "utf-8");
         this.push(file);
