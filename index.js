@@ -11,7 +11,8 @@ const PLUGIN_NAME = 'gulp-liquify';
 function gulpLiquify(locals, options) {
 
   var settings = _.defaults(options || {}, {
-    "base": false
+    "base": false,
+    "prefix": false
   });
 
   // creating a stream through which each file will pass

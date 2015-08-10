@@ -22,7 +22,8 @@ var liquify = function(contents, locals, includeBase, prefix){
   return new Promise(function (resolve, reject) {
 
     context.onInclude(function (name, callback) {
-      var absolute = path.isAbsolute(name);
+
+      var absolute = isAbsolute(name);
       var ext = path.extname(name);
       var filePath;
 
@@ -62,5 +63,10 @@ var liquify = function(contents, locals, includeBase, prefix){
   });
 
 };
+
+function isAbsolute(p) {
+    if(path.isAbsolute) return path.isAbsolute(p);
+    return path.normalize(p + '/') === path.normalize(path.resolve(p) + '/');
+}
 
 module.exports = liquify;
