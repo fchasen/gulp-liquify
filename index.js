@@ -24,9 +24,9 @@ function gulpLiquify(locals, options) {
     // Clone a fresh copy, so as not to affect others
     var tempLocals = locals ? _.clone(locals) : {};
 
-    // Apply file specific locals
-    if(file.locals) {
-      tempLocals = _.defaults(file.locals, tempLocals);
+    // Apply file specific data
+    if(file.data) {
+      tempLocals = _.defaults(file.data, tempLocals);
     }
 
     liquify(file.contents.toString("utf-8"), tempLocals, settings.base || file.base, settings.prefix)

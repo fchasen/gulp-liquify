@@ -54,20 +54,19 @@ describe('gulp-liquify', function() {
         });
     });
     
-    it('includes passed file.locals', function (done) {
-      var through = require("through2");
+    it('includes locals from gulp-data', function (done) {
+      var data = require('gulp-data');
 
       var locals = {
         name: "Fred"
       };
       
       gulp.src(fixtures("passed.liquid"))
-        .pipe(through.obj(function(file, enc, cb) {
-          file.locals = {
-            name: "Derf"
-          };
-          cb(null, file);
-        }))
+        .pipe(data(function(file) {
+	  return {
+	    name: "Derf"
+	  };
+	}))
         .pipe(liquify(locals))
         .on('data', function (data) {
           var content = data.contents.toString();
