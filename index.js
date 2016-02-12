@@ -12,7 +12,8 @@ function gulpLiquify(locals, options) {
 
   var settings = _.defaults(options || {}, {
     "base": false,
-    "prefix": false
+    "prefix": false,
+    "filters": {}
   });
 
   // creating a stream through which each file will pass
@@ -29,7 +30,7 @@ function gulpLiquify(locals, options) {
       tempLocals = _.defaults(file.locals, tempLocals);
     }
 
-    liquify(file.contents.toString("utf-8"), tempLocals, settings.base || file.base, settings.prefix)
+    liquify(file.contents.toString("utf-8"), tempLocals, settings.base || file.base, settings.prefix, settings.filters)
       .then(function(result) {
         file.contents = new Buffer(result, "utf-8");
         this.push(file);
