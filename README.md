@@ -33,23 +33,22 @@ You can pass a base for other templates to be included in a template. It default
     .pipe(liquify(locals, { base: "../templates/" }))
 });
 ```
-You can pass file specific locals by attaching it to the vinyl file object in a previous task.
+You can pass file specific locals through the `gulp-data` plugin.
 
 ```js
 var liquify = require('gulp-liquify');
-var through = require('through2');
+var data = require('gulp-data');
 
 gulp.task("liquify", function() {
   var locals = {
     name: "Fred"
   };
   gulp.src('*.liquid')
-    .pipe(through.obj(function(file, enc, cb) {
-      file.locals = {
+    .pipe(data(function(file) {
+      return {
         number: Math.random(),
         path: file.path
       };
-      cb(null, file);
     }))
     .pipe(liquify(locals))
     .pipe(gulp.dest('./dist/'))
